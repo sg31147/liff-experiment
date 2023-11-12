@@ -7,7 +7,8 @@ const app = express()
 const port = 8888
 
 const LINE_API_URL = 'https://api.line.me/v2/bot/message/push'
-const LINE_RICH_MENU_API_URL = 'https://api.line.me/v2/bot/richmenu'
+const LINE_REPLY_URL = 'https://api.line.me/v2/bot/message/reply'
+// const LINE_RICH_MENU_API_URL = 'https://api.line.me/v2/bot/richmenu'
 
 const LINE_ACCESS_TOKEN = process.env.LINE_ACCESS_TOKEN
 const RICH_MENU_ID='richmenu-0b7b847637a5dbb4a41d95f1cfaff6c8'
@@ -19,9 +20,7 @@ const headers = {
   'Authorization': `Bearer ${LINE_ACCESS_TOKEN}`
 }
 
-app.post('/send-message', async (req, res) => {
-  const { userUid } = req.body
-
+const sendMessage = async (userUid) => {
   const body = {
     'to': userUid,
     'messages': [
@@ -31,9 +30,15 @@ app.post('/send-message', async (req, res) => {
       }
     ]
   }
+  const response = await axios.post(LINE_API_URL, body, { headers })
+  return response
+}
+
+app.post('/send-message', async (req, res) => {
+  const { userUid } = req.body
 
   try {
-    const response = await axios.post(LINE_API_URL, body, { headers })
+    const response = await sendMessage(userUid)
     console.log('=== LINE log', response.data)
     res.json({
       message: 'Message OK'
@@ -51,19 +56,17 @@ app.post('/webhook', async (req, res) => {
 
   console.log('body', req.body.source)
 
+  if (!events || events.length <= 0) {
+    console.log('error event not found')
+    return false
+  }
+
   try {
     const lineUserID = events[0].source.userId
-    console.log(events[0].source)
-    // const config = {
-    //   method: 'post',
-    //   url: `https://api.line.me/v2/bot/user/${lineUserID}/richmenu/${RICH_MENU_ID}`,
-    //   headers: {
-    //     Authorization: `Bearer ${LINE_ACCESS_TOKEN}`
-    //   }
-    // }
-    // const response = await axios(config)
+    console.log(events[0])
 
-    // console.log('success', response.data)
+    const response = await sendMessage(lineUserID)
+    console.log('=== LINE log', response.data)
   } catch (error) {
     console.log('error', error)
   }
