@@ -88,12 +88,9 @@ const updateRichmenu = async (userUid, richmenuId) => {
   } catch (error) {
     throw new Error(error.message)
   }
-  
 }
 
-
 // API Zone
-
 app.post('/send-message', async (req, res) => {
   const { userUid, message } = req.body
 
