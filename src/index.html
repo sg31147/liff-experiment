@@ -40,12 +40,11 @@
   <script>
     let userId = ''
 
-    console.log(messageStatus.class = 'status status-success')
-
     const logOut = () => {
       liff.logout()
       window.location.reload()
     }
+
     const main = async () => {
       await liff.init({ liffId: '2000719050-j539NZqp' })
       if (liff.isLoggedIn()) {
