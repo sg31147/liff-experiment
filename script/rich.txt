@@ -1,2 +1,2 @@
-(al-menu1) Rich 1: richmenu-0b7b847637a5dbb4a41d95f1cfaff6c8
-(al-menu2) Rich 2: richmenu-5b8d330c3d77cfaf4e06f65ccb0d1b0c
+(al-menu1) Rich 1: richmenu-9f201bd36e1c32db506ad8c043583cbc
+(al-menu2) Rich 2: richmenu-00f38a8b2edf11419598cdddf9323cdd
