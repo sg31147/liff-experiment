@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +10,17 @@
       padding: 10px;
       background: #ddd;
     }
+
     .status.status-success {
       color: green;
     }
+
     .status.status-error {
       color: red;
     }
   </style>
 </head>
+
 <body>
   <div id="lineprofile" style="display: none;">
     <img width="100px" id="profileImage" src="">
@@ -36,18 +40,23 @@
     <button onclick="logOut()">Logout</button>
   </div>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.1/axios.min.js" integrity="sha512-m9S8W3a9hhBHPFAbEIaG7J9P92dzcAWwM42VvJp5n1/M599ldK6Z2st2SfJGsX0QR4LfCVr681vyU5vW8d218w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.1/axios.min.js"
+    integrity="sha512-m9S8W3a9hhBHPFAbEIaG7J9P92dzcAWwM42VvJp5n1/M599ldK6Z2st2SfJGsX0QR4LfCVr681vyU5vW8d218w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     let userId = ''
 
-    const logOut = () => {
+    const logOut = () =>
+    {
       liff.logout()
       window.location.reload()
     }
 
-    const main = async () => {
-      await liff.init({ liffId: '2000719050-j539NZqp' })
-      if (liff.isLoggedIn()) {
+    const main = async () =>
+    {
+      await liff.init({ liffId: '2007570742-gxmlwd9Y' })
+      if (liff.isLoggedIn())
+      {
         const profile = await liff.getProfile()
 
         // update profile
@@ -60,14 +69,18 @@
 
         // show profile
         lineprofile.style.display = 'block'
-      } else {
+      } else
+      {
         liff.login()
       }
     }
 
-    const sendMessage = async () => {
-      try {
-        if (!message.value) {
+    const sendMessage = async () =>
+    {
+      try
+      {
+        if (!message.value)
+        {
           alert('message not found')
           return false
         }
@@ -82,11 +95,13 @@
           data
         )
         console.log('response', response.data)
-      } catch (error) {
+      } catch (error)
+      {
         console.log('error', error.message)
       }
     }
     main()
   </script>
 </body>
+
 </html>
